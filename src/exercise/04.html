@@ -5,20 +5,172 @@
   <div id="root"></div>
   <script src="https://unpkg.com/react@17.0.0/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@17.0.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script src="https://unpkg.com/@babel/standalone@7.12.4/babel.js"></script>
-  <script type="text/babel">
-    // 🐨 Make a function called `message` which returns the JSX we want to share
+  <!-- <script type="text/babel">
+    Rendering messsage with Babel
+    Ex 4
+    
+    function message(props) {
+      const { children } = props;
+      return children;
+    }
 
-    // 🐨 use that function in place of the divs below with:
-    // 💰 {message({children: 'Hello World'})} {message({children: 'Goodbye World'})}
     const element = (
       <div className="container">
-        <div className="message">Hello World</div>
-        <div className="message">Goodbye World</div>
+        <div className="message">{message({ children: 'Hello World' })}</div>
+        <div className="message">{message({ children: 'Goodbye World' })}</div>
       </div>
-    )
+    );
 
-    // 💯 This is only the first step to making actual React components. The rest is in the extra credit!
-    ReactDOM.render(element, document.getElementById('root'))
+    ReactDOM.render(element, document.getElementById('root'));
+  </script> -->
+
+  <!-- <script type="text/babel">
+    // Ex 4 - extra 1
+
+    function message(props) {
+      const { children } = props;
+      return children;
+    }
+
+    const element = (
+      <div className="container">
+        <div className="message">
+          {React.createElement(message, { children: 'Hello World' })}
+        </div>
+        <div className="message">
+          {React.createElement(message, { children: 'Goodbye World' })}
+        </div>
+      </div>
+    );
+
+    ReactDOM.render(element, document.getElementById('root'));
+  </script> -->
+
+  <!-- <script type="text/babel">
+    // Ex 4 - extra 2
+
+    // Message being passed as a intire component
+    // function Message(props) {
+    //   const { hello, goodbye } = props;
+
+    //   return (
+    //     <div className="container">
+    //       <div className="message">{hello}</div>
+    //       <div className="message">{goodbye}</div>
+    //     </div>
+    //   );
+    // }
+
+    // const element = <Message hello="Hello World" goodbye="Goodbye World" />;
+
+    // Message being passed as a child component
+    function Message(props) {
+      const { children } = props;
+
+      return <div className="message">{children}</div>;
+    }
+
+    const element = (
+      <div className="container">
+        <Message children="Hello World" />
+        <Message children="Goodbye World" />
+      </div>
+    );
+
+    ReactDOM.render(element, document.getElementById('root'));
+  </script> -->
+  <!-- <script type="text/babel">
+    // Ex 4 - extra 3
+
+    const PropTypes = {
+      string(props, propName, componentName) {
+        if (typeof props[propName] !== 'string') {
+          const errorMessage = `The type of ${propName} prop, from ${componentName} component must be a string. Was passed a ${typeof props[
+            propName
+          ]}.`;
+          return new Error(errorMessage);
+        }
+      },
+    };
+
+    function Message(props) {
+      const { subject, greeting } = props;
+
+      return (
+        <div className="message">
+          {subject}, {greeting}
+        </div>
+      );
+    }
+
+    Message.propTypes = {
+      subject: PropTypes.string,
+      greeting: PropTypes.string,
+    };
+
+    const element = (
+      <div className="container">
+        <Message subject="Hello" greeting="World" />
+        <Message subject="Goodbye" greeting="World" />
+      </div>
+    );
+
+    ReactDOM.render(element, document.getElementById('root'));
+  </script> -->
+  <!-- <script type="text/babel">
+    // Ex 4 - extra 4
+
+    function Message(props) {
+      const { subject, greeting } = props;
+
+      return (
+        <div className="message">
+          {subject}, {greeting}
+        </div>
+      );
+    }
+
+    Message.propTypes = {
+      subject: PropTypes.string.isRequired,
+      greeting: PropTypes.string.isRequired,
+    };
+
+    const element = (
+      <div className="container">
+        <Message subject="Hello" greeting="World" />
+        <Message subject="Goodbye" greeting="World" />
+      </div>
+    );
+
+    ReactDOM.render(element, document.getElementById('root'));
+  </script> -->
+  <script type="text/babel">
+    // Ex 4 - extra 5
+
+    function Message(props) {
+      const { subject, greeting } = props;
+
+      return (
+        <div className="message">
+          {subject}, {greeting}
+        </div>
+      );
+    }
+
+    Message.propTypes = {
+      subject: PropTypes.string.isRequired,
+      greeting: PropTypes.string.isRequired,
+    };
+
+    const element = (
+      <React.Fragment>
+        <Message subject="Hello" greeting="World" />
+        <Message subject="Goodbye" greeting="World" />
+      </React.Fragment>
+    );
+
+    ReactDOM.render(element, document.getElementById('root'));
   </script>
 </body>
